@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_16_142522) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_16_143513) do
+  create_table "amenities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "location_amenities", force: :cascade do |t|
+    t.integer "location_id", null: false
+    t.integer "amenity_id", null: false
+    t.boolean "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amenity_id"], name: "index_location_amenities_on_amenity_id"
+    t.index ["location_id"], name: "index_location_amenities_on_location_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.string "local_name"
@@ -25,4 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_16_142522) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "location_amenities", "amenities"
+  add_foreign_key "location_amenities", "locations"
 end
