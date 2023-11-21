@@ -1,1 +1,7 @@
 All locations
+
+<%= link_to "New Location", new_location_path %>
+
+<% @locations.each do |location| %>
+  <%= location.name %>
+<% end %>
